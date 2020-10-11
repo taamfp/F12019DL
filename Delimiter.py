@@ -41,7 +41,7 @@ while(True):
         cv2.imshow("screen recorder", np.array(frameConversion))
         cv2.imshow("edges", edges)
 
-        print('Processing Time:', time.time() - last_time)
+        #print('Processing Time:', time.time() - last_time)
         last_time = time.time()
 
         # Key to stop recording
