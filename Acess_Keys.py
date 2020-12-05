@@ -12,11 +12,11 @@ import win32gui
 sta = time.time()
 
 # Press keys
-#def running():
-    #while time.time()-sta < 18:
-        #pydirectinput.keyDown('a')
+def running():
+    while time.time()-sta < 18:
+        pydirectinput.keyDown('a')
 
-#running()
+running()
 
 # Record keys
 
