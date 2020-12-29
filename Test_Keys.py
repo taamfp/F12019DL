@@ -1,7 +1,7 @@
 import win32api as wapi
 
 
-charGame = ["\b", "A", "Z", ",", "."]
+charGame = ["\b", "A", "Z", "K", "L"]
 
 def pressed_released_key():
     list_keys = []

@@ -4,7 +4,7 @@ import time
 from Delimiter import image_processing
 from PIL import ImageGrab
 import os
-#from Read_Keys import on_press, on_release
+from Test_Keys import pressed_released_key
 
 
 # Change path
@@ -12,9 +12,6 @@ path = 'path'
 
 # Game Keys String List
 keys = ['a', 'z', ',', '.']
-
-
-
 
 width = 1050
 height = 900

@@ -10,12 +10,17 @@ if deviceAvailability == True:
 	gpu = tf.test.gpu_device_name()
 	print('GPU device: \n', gpu)
 
+model_name = 'version1-{}'.format(int(time.time()))
+tensorboard = TensorBoard(log_dir='logs/{}'.format(model_name))
 
-input_shape = image.array
+width = 1050
+height = 900
+
+# Model
 
 model = Sequential()
 
-model.add(Conv2D(shape, activation='relu', input_shape=input_shape))
+model.add(Conv2D(shape, activation='relu', input_shape=(width, height, 3)))
 model.add(Conv2D(shape, activation='relu'))
 model.add(MaxPooling2D())
 
