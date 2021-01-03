@@ -19,5 +19,4 @@ def running():
 running()
 
 # Record keys
-
 list = []

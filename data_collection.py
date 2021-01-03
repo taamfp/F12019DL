@@ -10,8 +10,6 @@ from Test_Keys import pressed_released_key
 # Change path
 path = 'path'
 
-# Game Keys String List
-keys = ['a', 'z', ',', '.']
 
 width = 1050
 height = 900

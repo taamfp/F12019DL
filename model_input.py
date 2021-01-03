@@ -1,75 +1,59 @@
 import numpy as np
 import cv2 as opencv
 import time
-from Delimiter import image_processing
 from PIL import ImageGrab
 import os
 from Test_Keys import pressed_released_key
 
 
-# Window size
 
+# Window size
 width = 1050
 height = 900
 
-# Change path
-
-path = 'C:/Users/Utilizador/Documents/GitHub/F1withML/'
 
 
-# Keys array
-
-a  =  [1, 0, 0, 0, 0, 0, 0, 0, 0]
-az =  [0, 1, 0, 0, 0, 0, 0, 0, 0]
-al =  [0, 0, 1, 0, 0, 0, 0, 0, 0]
-ag =  [0, 0, 0, 1, 0, 0, 0, 0, 0]
-z  =  [0, 0, 0, 0, 1, 0, 0, 0, 0]
-zl =  [0, 0, 0, 0, 0, 1, 0, 0, 0]
-zg =  [0, 0, 0, 0, 0, 0, 1, 0, 0]
-l  =  [0, 0, 0, 0, 0, 0, 0, 1, 0]
-g  =  [0, 0, 0, 0, 0, 0, 0, 0, 1]
-
+path = 'C:/Users/Utilizador/Documents/GitHub/F1withML'
 
 file_index = 1
+file_name = os.path.join(path,'training_file-{}.npy'.format(file_index))
 
-file_data = os.path.join(path,'training_data-1.npy')
+Keys = {
+	'A':  [1, 0, 0, 0, 0, 0, 0, 0, 0],
+	'AZ': [0, 1, 0, 0, 0, 0, 0, 0, 0],
+	'AL': [0, 0, 1, 0, 0, 0, 0, 0, 0],
+	'AK': [0, 0, 0, 1, 0, 0, 0, 0, 0],
+	'Z':  [0, 0, 0, 0, 1, 0, 0, 0, 0],
+	'ZL': [0, 0, 0, 0, 0, 1, 0, 0, 0],
+	'ZK': [0, 0, 0, 0, 0, 0, 1, 0, 0],
+	'K':  [0, 0, 0, 0, 0, 0, 0, 1, 0],
+	'L':  [0, 0, 0, 0, 0, 0, 0, 0, 1],
+}
+
+move_key = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 
-if os.path.isfile(file_data):
-	file_index += 1
-	file_data = os.path.join(path,'training_data-{}.npy'.format(file_index))
+def keys_pressed(keys):
 
+	move_key = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-def keys_pressed(key_array):
-
-	keys_on = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-	if 'A' in key_array:
-		keys_on = a
-	elif 'A' and 'Z' in key_array:
-		keys_on = az
-	elif 'A' and ',' in key_array:
-		keys_on = al
-	elif 'A' and '.' in key_array:
-		keys_on = ag
-	elif 'Z' in key_array:
-		keys_on = z
-	elif 'Z' and ',' in key_array:
-		keys_on = zl
-	elif 'Z' and '.' in key_array:
-		keys_on = zg
-	elif ',' in key_array:
-		keys_on = l
+	if ''.join(keys) in Keys:
+		return Keys[''.join(keys)]
 	else:
-		keys_on = g
-
-	return keys_on
+		return move_key
 
 
 
 def main(file, file_index):
 
-	file = file_data
+	print('Starting acquisition')
+
+	time.sleep(5)
+
+	if os.path.isfile(file):
+		file_index += 1
+		file_data = os.path.join(path,'training_file-{}.npy'.format(file_index))
+
 	data = []
 
 	while(True):
@@ -78,26 +62,16 @@ def main(file, file_index):
 		screenArray = np.array(screen_recording)
 		frameConversion = opencv.cvtColor(screenArray, opencv.COLOR_BGR2RGB)
 
-		edges = image_processing(frameConversion)
-		lines = opencv.HoughLinesP(edges, 1, np.pi / 180, 50, maxLineGap=50)
-
-		if lines is not None:
-			for line in lines:
-				x1, y1, x2, y2 = line[0]
-				lines = opencv.line(frameConversion, (x1, y1), (x2, y2), (0, 255, 0), 5)
-
-		keys = keys_pressed(pressed_released_key)
+		keys = keys_pressed(pressed_released_key())
 
 		data.append([frameConversion,keys])
 
-		if len(data) > 1000:
+		if len(data) > 100:
 		   np.save(file, data)
 		   data = []
 		   file_index += 1
-		   file_data = os.path.join(path,'training_data-{}.npy'.format(file_index))
-		else:
-			np.save(file, data)
+		   file_data = os.path.join(path,'training_file-{}.npy'.format(file_index))
 
 
-if __name__ == "__main__":
-	main(file_data, file_index)
+if __name__ == '__main__':
+	main(file_name, file_index)
