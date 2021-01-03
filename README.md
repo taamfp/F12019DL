@@ -13,5 +13,4 @@ Acess to keys data was obtained with [pydirectinput](https://github.com/learncod
 - Road Lane Line Detection with [Hough Line Transform](https://opencv24-python-tutorials.readthedocs.io/en/stable/py_tutorials/py_imgproc/py_houghlines/py_houghlines.html);
 - Collection of video frames data (currently with .jpg, and .npy files with frames and label keys).
 
-To collect data from the game (keys and frames), use the  ```model_input.py``` script. \
-Individual game frames with track delimiter can be acquired with the ```data_collection.py``` script.
+To collect data from the game (keys and frames), use the  ```model_input.py``` script. Individual game frames with track delimiter can be acquired with the ```data_collection.py``` script.
