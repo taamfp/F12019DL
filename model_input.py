@@ -3,14 +3,12 @@ import cv2 as opencv
 import time
 from PIL import ImageGrab
 import os
-from Test_Keys import pressed_released_key
+from test_keys import pressed_released_key
 
 
-
-# Window size
+# Window ImageGrab size
 width = 1050
 height = 900
-
 
 
 path = 'C:/Users/Utilizador/Documents/GitHub/F1withML'
@@ -48,7 +46,10 @@ def main(file, file_index):
 
 	print('Starting acquisition')
 
+	# Waiting time
 	time.sleep(5)
+
+	print('Ok, go!')
 
 	if os.path.isfile(file):
 		file_index += 1
@@ -63,6 +64,8 @@ def main(file, file_index):
 		frameConversion = opencv.cvtColor(screenArray, opencv.COLOR_BGR2RGB)
 
 		keys = keys_pressed(pressed_released_key())
+
+		print(keys)
 
 		data.append([frameConversion,keys])
 

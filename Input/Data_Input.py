@@ -18,7 +18,7 @@ def screen_recorder():
         screenArray = np.array(screen_recording)
         frameConversion = cv2.cvtColor(screenArray, cv2.COLOR_BGR2RGB)
 
-        cv2.imshow("screen recorder", np.array(frameConversion))
+        cv2.imshow('screen recorder', np.array(frameConversion))
 
 
         print('Processing Time:', time.time() - last_time)
