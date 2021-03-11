@@ -4,8 +4,8 @@ from PIL import ImageGrab
 import win32gui
 import time
 
-width = 1000
-height = 700
+width = 1050
+height = 900
 
 # Screen Recording
 def screen_recorder():
