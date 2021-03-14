@@ -3,7 +3,6 @@
 import os
 import numpy as np
 import time
-import pyautogui
 import pydirectinput
 import win32api
 import win32gui

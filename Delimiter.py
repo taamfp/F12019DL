@@ -5,8 +5,8 @@ import win32gui
 import time
 import matplotlib.pyplot as plt
 
-width = 1000
-height = 700
+width = 1023
+height = 750
 
 def image_processing(image):
 
@@ -23,7 +23,7 @@ def image_processing(image):
 while(True):
 
         # Time Update
-        last_time = time.time()
+        time_ = time.time()
 
         screen_recording = ImageGrab.grab(bbox=(0,0,width,height))
         screenArray = np.array(screen_recording)
@@ -42,7 +42,8 @@ while(True):
         cv2.imshow("edges", edges)
 
         #print('Processing Time:', time.time() - last_time)
-        last_time = time.time()
+
+        print(time.time() - time_)
 
         # Key to stop recording
         if cv2.waitKey(1) == ord('t'):

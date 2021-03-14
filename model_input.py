@@ -7,8 +7,8 @@ from test_keys import pressed_released_key
 
 
 # Window ImageGrab size
-width = 1050
-height = 900
+width = 1023
+height = 750
 
 
 path = 'C:/Users/Utilizador/Documents/GitHub/F1withML'
@@ -17,64 +17,88 @@ file_index = 1
 file_name = os.path.join(path,'training_file-{}.npy'.format(file_index))
 
 Keys = {
-	'A':  [1, 0, 0, 0, 0, 0, 0, 0, 0],
-	'AZ': [0, 1, 0, 0, 0, 0, 0, 0, 0],
-	'AL': [0, 0, 1, 0, 0, 0, 0, 0, 0],
-	'AK': [0, 0, 0, 1, 0, 0, 0, 0, 0],
-	'Z':  [0, 0, 0, 0, 1, 0, 0, 0, 0],
-	'ZL': [0, 0, 0, 0, 0, 1, 0, 0, 0],
-	'ZK': [0, 0, 0, 0, 0, 0, 1, 0, 0],
-	'K':  [0, 0, 0, 0, 0, 0, 0, 1, 0],
-	'L':  [0, 0, 0, 0, 0, 0, 0, 0, 1],
+    'A':  [1, 0, 0, 0, 0, 0, 0, 0, 0],
+    'AZ': [0, 1, 0, 0, 0, 0, 0, 0, 0],
+    'AL': [0, 0, 1, 0, 0, 0, 0, 0, 0],
+    'AK': [0, 0, 0, 1, 0, 0, 0, 0, 0],
+    'Z':  [0, 0, 0, 0, 1, 0, 0, 0, 0],
+    'ZL': [0, 0, 0, 0, 0, 1, 0, 0, 0],
+    'ZK': [0, 0, 0, 0, 0, 0, 1, 0, 0],
+    'K':  [0, 0, 0, 0, 0, 0, 0, 1, 0],
+    'L':  [0, 0, 0, 0, 0, 0, 0, 0, 1],
 }
 
 move_key = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
+def image_processing(image):
+
+    low_level = np.array([18, 94, 140])
+    up_level = np.array([48, 255, 255])
+
+    frameBlur = opencv.GaussianBlur(image, (5, 5), 0)
+    hsv = opencv.cvtColor(frameBlur, opencv.COLOR_BGR2HSV)
+    mask = opencv.inRange(hsv, low_level, up_level)
+    edges = opencv.Canny(mask, 75, 100)
+
+    return edges
+
 
 def keys_pressed(keys):
 
-	move_key = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    move_key = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-	if ''.join(keys) in Keys:
-		return Keys[''.join(keys)]
-	else:
-		return move_key
+    if ''.join(keys) in Keys:
+        return Keys[''.join(keys)]
+    else:
+        return move_key
 
 
 
 def main(file, file_index):
 
-	print('Starting acquisition')
+    print('Starting acquisition')
 
-	# Waiting time
-	time.sleep(5)
+    # Waiting time
+    time.sleep(5)
 
-	print('Ok, go!')
+    print('Ok, go!')
 
-	if os.path.isfile(file):
-		file_index += 1
-		file_data = os.path.join(path,'training_file-{}.npy'.format(file_index))
+    if os.path.isfile(file):
+        file_index += 1
+        file_data = os.path.join(path,'training_file-{}.npy'.format(file_index))
 
-	data = []
+    data = []
 
-	while(True):
+    while(True):
 
-		screen_recording = ImageGrab.grab(bbox=(0, 0, width, height))
-		screenArray = np.array(screen_recording)
-		frameConversion = opencv.cvtColor(screenArray, opencv.COLOR_BGR2RGB)
+        screen_recording = ImageGrab.grab(bbox=(0, 0, width, height))
+        screenArray = np.array(screen_recording)
+        frameConversion = opencv.cvtColor(screenArray, opencv.COLOR_BGR2RGB)
+        frameConversion = opencv.resize(frameConversion, (350, 350))
 
-		keys = keys_pressed(pressed_released_key())
+        edges = image_processing(frameConversion)
 
-		print(keys)
+        lines = opencv.HoughLinesP(edges, 1, np.pi/180, 50, maxLineGap=50)
 
-		data.append([frameConversion,keys])
+        if lines is not None:
+            for line in lines:
+                x1, y1, x2, y2 = line[0]
+                opencv.line(frameConversion, (x1,y1), (x2,y2), (0,255,0),5)
 
-		if len(data) > 100:
-		   np.save(file, data)
-		   data = []
-		   file_index += 1
-		   file_data = os.path.join(path,'training_file-{}.npy'.format(file_index))
+        keys = keys_pressed(pressed_released_key())
+
+        print(keys)
+
+        data.append([frameConversion,keys])
+
+        if len(data) > 10000:
+            np.save(file, data)
+            file_data = os.path.join(path,'training_file-{}.npy'.format(file_index))
+            print('Train complete')
+            data = []
+            file_index += 1
+
 
 
 if __name__ == '__main__':
-	main(file_name, file_index)
+    main(file_name, file_index)
