@@ -11,24 +11,11 @@ import pydirectinput
 # Model test with CPU
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
-model_file = 'F1_model.h5'
+model_file = 'F1_model_v2.h5'
 model = models.load_model(model_file)
 
-width = 350
-height = 350
-
-
-keys = {
-	'A':  [1, 0, 0, 0, 0, 0, 0, 0, 0],
-	'AZ': [0, 1, 0, 0, 0, 0, 0, 0, 0],
-	'AL': [0, 0, 1, 0, 0, 0, 0, 0, 0],
-	'AK': [0, 0, 0, 1, 0, 0, 0, 0, 0],
-	'Z':  [0, 0, 0, 0, 1, 0, 0, 0, 0],
-	'ZL': [0, 0, 0, 0, 0, 1, 0, 0, 0],
-	'ZK': [0, 0, 0, 0, 0, 0, 1, 0, 0],
-	'K':  [0, 0, 0, 0, 0, 0, 0, 1, 0],
-	'L':  [0, 0, 0, 0, 0, 0, 0, 0, 1],
-}
+width = 1023
+height = 750
 
 
 def bot_test():
@@ -41,7 +28,6 @@ def bot_test():
 		frame = opencv.cvtColor(np.array(car_screen), opencv.COLOR_BGR2RGB)
 
 		frameConversion = opencv.cvtColor(frame, opencv.COLOR_BGR2RGB)
-		frameConversion = opencv.resize(frameConversion, (width, height))
 
 		edges = image_processing(frameConversion)
 
@@ -52,8 +38,9 @@ def bot_test():
 				x1, y1, x2, y2 = line[0]
 				opencv.line(frameConversion, (x1,y1), (x2,y2), (0,255,0),5)
 
+		frameConversion = opencv.resize(frameConversion, (350, 350))
 
-		y_pred = model.predict(frameConversion.reshape(-1, width, height, 3)).flatten()
+		y_pred = model.predict(frameConversion.reshape(-1, 350, 350, 3)).flatten()
 
 		for i in range(len(y_pred)):
 			if i == np.argmax(np.array(y_pred)):
@@ -63,21 +50,65 @@ def bot_test():
 
 		y_pred = [int(i) for i in y_pred]
 
-		time.sleep(0.3)
+		if np.argmax(y_pred) == 0:
+			pydirectinput.keyDown(str('A').lower())
+			pydirectinput.keyUp(str('Z').lower())
+			pydirectinput.keyUp(str('K').lower())
+			pydirectinput.keyUp(str('L').lower())
 
+		elif np.argmax(y_pred) == 1:
+			pydirectinput.keyDown(str('A').lower())
+			pydirectinput.keyDown(str('Z').lower())
+			pydirectinput.keyUp(str('K').lower())
+			pydirectinput.keyUp(str('L').lower())
 
-		for i, j in keys.items():
-			if j == y_pred:
-				print(j)
-				pydirectinput.keyDown(str(i).lower())
-				pydirectinput.keyUp(str(i).lower())
-				if len(str(i))>1:
-					pydirectinput.keyDown(str(i).lower()[0])
-					pydirectinput.keyDown(str(i).lower()[1])
-					pydirectinput.keyUp(str(i).lower()[1])
-					pydirectinput.keyUp(str(i).lower()[1])
-				break
+		elif np.argmax(y_pred) == 2:
+			pydirectinput.keyDown(str('A').lower())
+			pydirectinput.keyDown(str('L').lower())
+			pydirectinput.keyUp(str('Z').lower())
+			pydirectinput.keyUp(str('K').lower())
 
+		elif np.argmax(y_pred) == 3:
+			pydirectinput.keyDown(str('A').lower())
+			pydirectinput.keyDown(str('K').lower())
+			pydirectinput.keyUp(str('Z').lower())
+			pydirectinput.keyUp(str('L').lower())
+
+		elif np.argmax(y_pred) == 4:
+			pydirectinput.keyDown(str('Z').lower())
+			pydirectinput.keyUp(str('A').lower())
+			pydirectinput.keyUp(str('K').lower())
+			pydirectinput.keyUp(str('L').lower())
+
+		elif np.argmax(y_pred) == 5:
+			pydirectinput.keyDown(str('Z').lower())
+			pydirectinput.keyDown(str('L').lower())
+			pydirectinput.keyUp(str('A').lower())
+			pydirectinput.keyUp(str('K').lower())
+
+		elif np.argmax(y_pred) == 6:
+			pydirectinput.keyDown(str('Z').lower())
+			pydirectinput.keyDown(str('K').lower())
+			pydirectinput.keyUp(str('A').lower())
+			pydirectinput.keyUp(str('L').lower())
+
+		elif np.argmax(y_pred) == 7:
+			pydirectinput.keyDown(str('K').lower())
+			pydirectinput.keyUp(str('A').lower())
+			pydirectinput.keyUp(str('Z').lower())
+			pydirectinput.keyUp(str('L').lower())
+
+		elif np.argmax(y_pred) == 8:
+			pydirectinput.keyDown(str('L').lower())
+			pydirectinput.keyUp(str('A').lower())
+			pydirectinput.keyUp(str('Z').lower())
+			pydirectinput.keyUp(str('K').lower())
+
+		else:
+			pydirectinput.keyUp(str('A').lower())
+			pydirectinput.keyUp(str('Z').lower())
+			pydirectinput.keyUp(str('K').lower())
+			pydirectinput.keyUp(str('L').lower())
 
 		print('Processing Time:', time.time() - t_time)
 

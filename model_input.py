@@ -10,11 +10,11 @@ from test_keys import pressed_released_key
 width = 1023
 height = 750
 
-
 path = 'C:/Users/Utilizador/Documents/GitHub/F1withML'
 
 file_index = 1
 file_name = os.path.join(path,'training_file-{}.npy'.format(file_index))
+
 
 Keys = {
     'A':  [1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -63,18 +63,17 @@ def main(file, file_index):
 
     print('Ok, go!')
 
-    if os.path.isfile(file):
-        file_index += 1
-        file_data = os.path.join(path,'training_file-{}.npy'.format(file_index))
-
     data = []
 
     while(True):
 
+        if os.path.isfile(file):
+            file_index += 1
+            file = os.path.join(path,'training_file-{}.npy'.format(file_index))
+
         screen_recording = ImageGrab.grab(bbox=(0, 0, width, height))
         screenArray = np.array(screen_recording)
         frameConversion = opencv.cvtColor(screenArray, opencv.COLOR_BGR2RGB)
-        frameConversion = opencv.resize(frameConversion, (350, 350))
 
         edges = image_processing(frameConversion)
 
@@ -85,19 +84,21 @@ def main(file, file_index):
                 x1, y1, x2, y2 = line[0]
                 opencv.line(frameConversion, (x1,y1), (x2,y2), (0,255,0),5)
 
+        frameConversion = opencv.resize(frameConversion, (350, 350))
+
         keys = keys_pressed(pressed_released_key())
 
         print(keys)
 
         data.append([frameConversion,keys])
 
-        if len(data) > 10000:
+
+        if len(data) > 5000:
             np.save(file, data)
-            file_data = os.path.join(path,'training_file-{}.npy'.format(file_index))
-            print('Train complete')
+            print('Train set' + str(file_index) + 'complete')
             data = []
             file_index += 1
-
+            file = os.path.join(path,'training_file-{}.npy'.format(file_index))
 
 
 if __name__ == '__main__':
