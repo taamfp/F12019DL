@@ -36,6 +36,15 @@ python3 custom_cnn.py (F1_model.h5)
 python3 main.py
 ```
 
+### Tensorboard visualization
+
+To check the inference metrics, use ```tensorboard --logdir logs/```.
+
+<p>
+  <img src="log_plots/tensorboard.PNG" />
+</p>
+
+
 ### Further work
 
 - Performance optimization;
