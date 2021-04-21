@@ -69,7 +69,7 @@ tornado @ file:///D:/bld/tornado_1610094858390/work
 tqdm==4.56.0
 traitlets==5.0.5
 typing-extensions==3.7.4.3
-urllib3==1.26.3
+urllib3==1.26.4
 wcwidth==0.2.5
 Werkzeug==1.0.1
 wincertstore==0.2
