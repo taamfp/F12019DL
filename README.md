@@ -1,4 +1,4 @@
-# F1 2019 with Deep Learning
+# F1 2019 with Deep Learning :car: :computer:
 
 ## Project Description
 F1 2019 official game car control with the implementation of Deep Learning algorithms. Data generation with lane line detection, with game capture and image processing using ```PIL``` and ```OpenCV```. 
@@ -31,10 +31,17 @@ Check the ```requirements.txt ``` to see the project dependencies. These include
 sudo pip install -r requirements.txt
 git clone https://github.com/taamfp/F12019DL.git
 cd F12019DL
-python3 input.py (above 5 frames)
+python3 input.py (above 5000 frames)
 python3 custom_cnn.py (F1_model.h5)
 python3 main.py
 ```
+
+### Models
+
+Both custom CNN and Mobile Net ([paper](https://arxiv.org/abs/1704.04861)) models were implemented for the project.
+
+#### Custom CNN
+
 
 ### Tensorboard visualization
 
@@ -49,4 +56,7 @@ To check the inference metrics, use ```tensorboard --logdir logs/```.
 
 - Performance optimization;
 - Hyperparameter Tuning;
-- Online Inference.
+- Online Inference;
+- Implementation of other algorithms.
+
+Feel free to add any sugestions or to contribute to the project :thumbsup: .
