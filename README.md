@@ -1,5 +1,5 @@
 # F1 2019 with Deep Learning
-F1 2019 controlling cars with Deep Learning algorithms
+F1 2019 car control with Deep Learning algorithms
 
 <p align="center">
   <img src="Demo/demo.gif" alt="animated" />
