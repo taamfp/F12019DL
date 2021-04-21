@@ -4,6 +4,7 @@ from PIL import ImageGrab
 import win32gui
 import time
 
+# Input Size
 width = 1023
 height = 750
 

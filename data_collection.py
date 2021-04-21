@@ -1,22 +1,26 @@
+### This script is just for image collection. For full data information use the "input.py" script ###
+
+
+import os
 import numpy as np
 import cv2 as opencv
 import time
-from Delimiter import image_processing
+from track_view import image_processing
 from PIL import ImageGrab
-import os
-from Test_Keys import pressed_released_key
+from test_keys import pressed_released_key
 
 
 # Change path
-path = 'path'
+path = os.getcwd()
 
-
+# Input Size
 width = 1050
 height = 900
 
 # Recording frames with delta
 i_frame = 0
 
+# Recording to current folder
 while(True):
     i_frame += 1
     screen_recording = ImageGrab.grab(bbox=(0, 0, width, height))

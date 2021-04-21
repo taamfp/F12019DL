@@ -1,8 +1,8 @@
+import os
 import numpy as np
 import cv2 as opencv
 import time
 from PIL import ImageGrab
-import os
 from test_keys import pressed_released_key
 
 
@@ -13,9 +13,9 @@ height = 750
 path = 'C:/Users/Utilizador/Documents/GitHub/F1withML'
 
 file_index = 1
-file_name = os.path.join(path,'training_file-{}.npy'.format(file_index))
+file_name = os.path.join(path,'data_file_input-{}.npy'.format(file_index))
 
-
+# Game Keys
 Keys = {
     'A':  [1, 0, 0, 0, 0, 0, 0, 0, 0],
     'AZ': [0, 1, 0, 0, 0, 0, 0, 0, 0],
@@ -30,6 +30,7 @@ Keys = {
 
 move_key = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
+# Image preprocessing
 def image_processing(image):
 
     low_level = np.array([18, 94, 140])
@@ -56,7 +57,7 @@ def keys_pressed(keys):
 
 def main(file, file_index):
 
-    print('Starting acquisition')
+    print('Starting acquisition...')
 
     # Waiting time
     time.sleep(5)
@@ -74,10 +75,9 @@ def main(file, file_index):
         screen_recording = ImageGrab.grab(bbox=(0, 0, width, height))
         screenArray = np.array(screen_recording)
         frameConversion = opencv.cvtColor(screenArray, opencv.COLOR_BGR2RGB)
-
         edges = image_processing(frameConversion)
 
-        lines = opencv.HoughLinesP(edges, 1, np.pi/180, 50, maxLineGap=50)
+        lines = opencv.HoughLinesP(edges, 1, np.pi/180, 50, maxLineGap = 50)
 
         if lines is not None:
             for line in lines:
@@ -92,7 +92,7 @@ def main(file, file_index):
 
         data.append([frameConversion,keys])
 
-
+        # Record every 5000 frames
         if len(data) > 5000:
             np.save(file, data)
             print('Train set' + str(file_index) + 'complete')
