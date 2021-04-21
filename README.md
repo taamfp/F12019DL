@@ -1,5 +1,5 @@
 # F1 2019 with Deep Learning
-F1 2019 controlling cars with Deep Learning algorithms <img src="https://img.shields.io/badge/build-open%20to%suggestions-green">
+F1 2019 controlling cars with Deep Learning algorithms <img src="https://img.shields.io/badge/build-open%20to%20suggestions-green">
 
 <p align="center">
   <img src="Demo/demo.gif" alt="animated" />
