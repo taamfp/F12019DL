@@ -1,5 +1,7 @@
 # F1 2019 with Deep Learning
-F1 2019 car control with Deep Learning algorithms
+
+## Project Description
+F1 2019 car control with the implementation of Deep Learning algorithms. 
 
 <p align="center">
   <img src="Demo/demo.gif" alt="animated" />
@@ -15,3 +17,7 @@ Acess to keys data was obtained with [pydirectinput](https://github.com/learncod
 - Basic train and test implementation.
 
 To collect data from the game (keys and frames), use the  ```model_input.py``` script. Individual game frames with track delimiter can be acquired with the ```data_collection.py``` script.
+
+### Dependencies
+
+Check the ```requirements.txt ``` to see the project dependencies.
