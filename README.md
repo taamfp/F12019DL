@@ -45,13 +45,13 @@ Both custom CNN and Mobile Net ([paper](https://arxiv.org/abs/1704.04861)) model
 The custom CNN is given with an input size of ```350x350```, following a Conv2D layer section. A Flatten layer compresses all the information to a 1D array for a fully connected 
 layer section. The rectifier activation function was used in all layers except the output layer.
 
-<img src="Demo/custom.PNG" width="700" height="350">
+<img src="Demo/custom.PNG"/>
             
 <br>The output layer consists of 9 nodes, one for each possible keyboard movement. In this case the softmax activation function was used.
 
 <br>Categorical Cross Entropy function is used in this situation for multi-label task, which can be defined as the following: 
 
-<img src="Demo/function.PNG" width="250" height="150"/>
+<img src="Demo/function.PNG"/>
 
 where ```C``` is the number of classes, ```yt``` the true class vector and ```y_score``` the model inference vector. Optimization of weight matrix was done with
 [Adam Optimizer](https://arxiv.org/abs/1412.6980).
