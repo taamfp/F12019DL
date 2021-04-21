@@ -1,13 +1,13 @@
 # F1 2019 with Deep Learning
 
 ## Project Description
-F1 2019 car control with the implementation of Deep Learning algorithms. 
+F1 2019 official game car control with the implementation of Deep Learning algorithms. Data generation with lane line detection, with game capture and image processing using ```PIL``` and ```OpenCV```. 
+<br>
+<br> Acess to keys data was obtained with [pydirectinput](https://github.com/learncodebygaming/pydirectinput) library. Check the [repository](https://github.com/learncodebygaming/pydirectinput) and [LearnCodeByGaming](https://github.com/learncodebygaming) awesome content (also on [Youtube](https://www.youtube.com/channel/UCD8vb6Bi7_K_78nItq5YITA) and official [website](https://learncodebygaming.com/)).
 
 <p align="center">
   <img src="Demo/demo.gif" alt="animated" />
 </p>
- 
-Acess to keys data was obtained with [pydirectinput](https://github.com/learncodebygaming/pydirectinput) library. Check the [repository](https://github.com/learncodebygaming/pydirectinput) and [LearnCodeByGaming](https://github.com/learncodebygaming) awesome content (also on [Youtube](https://www.youtube.com/channel/UCD8vb6Bi7_K_78nItq5YITA) and official [website](https://learncodebygaming.com/)).
 
 ## Current Status
 
