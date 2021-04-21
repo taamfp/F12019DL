@@ -44,6 +44,7 @@ Both custom CNN and Mobile Net ([paper](https://arxiv.org/abs/1704.04861)) model
 
 The custom CNN is given with an input size of ```350x350```, following a Conv2D layer section. A Flatten layer compresses all the information to a 1D array for a fully connected 
 layer section. The rectifier activation function was used in all layers except the output layer.
+
 <p>
   <img src="Demo/custom.PNG>
 </p>
@@ -52,7 +53,10 @@ layer section. The rectifier activation function was used in all layers except t
 
 <br>Categorical Cross Entropy function is used in this situation for multi-label task, which can be defined as the following: 
 
-<br> <img src="https://latex.codecogs.com/svg.latex?\Large&space;x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" title="\Large \Lagr=\sum_{n=i}^{C}" />
+<p>
+  <img src="log_plots/tensorboard.PNG" />
+</p>
+
 
 
 ## Tensorboard visualization
