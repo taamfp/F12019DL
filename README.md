@@ -9,7 +9,7 @@ F1 2019 official game car control with the implementation of Deep Learning algor
   <img src="Demo/demo.gif" alt="animated" />
 </p>
 
-<br> Inference code include GPU support. An NVIDIA GeForce GTX 1060 6GB was used for this project.
+<br> Inference code includes GPU support. An NVIDIA GeForce GTX 1060 6GB was used for this project.
 
 ## Pipeline
 
@@ -20,12 +20,12 @@ F1 2019 official game car control with the implementation of Deep Learning algor
 
 To collect data from the game (keys and frames), use the  ```model_input.py``` script. Individual game frames with track delimiter can be acquired with the ```data_collection.py``` script.
 
-### Dependencies
+## Dependencies
 
 Check the ```requirements.txt ``` to see the project dependencies. These include ```tensorflow --version 2.4``` and ```CUDA 11```.
 
 
-### Instructions
+## Instructions
 
 ```
 sudo pip install -r requirements.txt
@@ -36,14 +36,26 @@ python3 custom_cnn.py (F1_model.h5)
 python3 main.py
 ```
 
-### Models
+## Models
 
 Both custom CNN and Mobile Net ([paper](https://arxiv.org/abs/1704.04861)) models were implemented for the project.
 
-#### Custom CNN
+### Custom CNN
+
+The custom CNN is given with an input size of ```350x350```, following a Conv2D layer section. A Flatten layer compresses all the information to a 1D array for a fully connected 
+layer section. The rectifier activation function was used in all layers except the output layer.
+<p>
+  <img src="Demo/custom.PNG>
+</p>
+            
+<br>The output layer consists of 9 nodes, one for each possible keyboard movement. In this case the softmax activation function was used.
+
+<br>Categorical Cross Entropy function is used in this situation for multi-label task, which can be defined as the following: 
+
+<br> <img src="https://latex.codecogs.com/svg.latex?\Large&space;x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" title="\Large \Lagr=\sum_{n=i}^{C}" />
 
 
-### Tensorboard visualization
+## Tensorboard visualization
 
 To check the inference metrics, use ```tensorboard --logdir logs/```.
 
@@ -52,7 +64,7 @@ To check the inference metrics, use ```tensorboard --logdir logs/```.
 </p>
 
 
-### Further work
+## Further work
 
 - Performance optimization;
 - Hyperparameter Tuning;
