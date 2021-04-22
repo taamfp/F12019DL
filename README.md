@@ -18,7 +18,7 @@ F1 2019 official game car control with the implementation of Deep Learning algor
 - Collection of video frames data with encoded pressed and released keys;
 - Custom CNN and Mobile Net implementation.
 
-To collect data from the game (keys and frames), use the  ```model_input.py``` script. Individual game frames with track delimiter can be acquired with the ```data_collection.py``` script.
+To collect data from the game (keys and frames), use the  ```input.py``` script. Individual game frames with track delimiter can be acquired with the ```data_collection.py``` script.
 
 ## Dependencies
 
