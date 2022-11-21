@@ -51,7 +51,7 @@ scipy==1.4.1
 tensorboard==2.4.1
 tensorboard-plugin-wit==1.8.0
 tensorflow-estimator==2.4.0
-tensorflow-gpu==2.4.1
+tensorflow-gpu==2.9.3
 termcolor==1.1.0
 tqdm==4.56.0
 traitlets==5.0.5
